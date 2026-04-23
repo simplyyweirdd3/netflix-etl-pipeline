@@ -1,0 +1,34 @@
+ETL Mini-Project Reflection
+CPSC 5071-02 | Data Management for Data Science
+Student: Ruman Sidhu
+Dataset: Netflix Movies and TV Shows (Kaggle)
+Files: etl_netflix.py, netflix_cleaned.db
+
+
+ETL Process Overview
+
+The pipeline follows the Extract-Transform-Load pattern across four steps. For extraction, I loaded the Netflix CSV into a pandas DataFrame and inspected it before writing any transformation logic. The dataset had 8,807 rows and 12 columns, with notable nulls in director (2,634 missing), cast, and country. Understanding that up front shaped every downstream decision.
+
+The transformation phase was the most involved. I standardized column names, dropped rows missing date_added, filled non-critical nulls like director and cast with "Unknown" to preserve otherwise valid records, and converted date_added to datetime before deriving the year_added column. I also went beyond the base requirements by splitting listed_in into a primary_genre column and parsing duration into a numeric value and unit, which made the SQL analysis in Step 4 more useful.
+
+
+What Was Most Challenging
+
+The trickiest part was date parsing. The date_added column stored dates as strings in the format "September 25, 2021", and some values had leading whitespace that silently broke parsing until I added .str.strip() before calling pd.to_datetime(). That kind of quiet failure is not obvious until you are actively looking for it.
+
+The bigger design challenge was deciding what to do with missing values. Whether to drop rows or fill them depended on which columns actually mattered for the downstream queries, which forced me to think about Steps 3 and 4 before I even finished Step 2.
+
+
+Insights and Surprises
+
+A few findings stood out once the data was in the database. The United States leads with nearly 2,800 titles, but India came in at almost 1,000, larger than the UK, Japan, and South Korea combined. That reflects how seriously Netflix has invested in regional content. Movies average a release year of 2013 while TV Shows average 2016, suggesting the movie catalog leans on older licensed content while the TV library skews toward recent originals. Content additions also peaked in 2019 and 2020 before slowing, which likely reflects a shift away from volume licensing toward original productions.
+
+
+What I Learned
+
+This project connected concepts that had felt separate during the quarter. Pandas, SQLite, and SQL are not just individual tools but stages in a workflow where decisions in one step constrain what is possible in the next. It also reinforced how much data engineering comes down to judgment: knowing when a missing value is a problem versus something you can preserve, when to drop rows versus fill them, when a column needs to be split to be useful. The coding is the straightforward part. The harder part is thinking clearly about what the data represents before deciding how to handle it.
+
+
+Execution Notes
+
+Run etl_netflix.py directly. It will generate netflix_cleaned.db in the same directory. Tested with Python 3, pandas, and sqlite3 on a clean environment.
