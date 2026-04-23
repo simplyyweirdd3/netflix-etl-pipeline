@@ -9,7 +9,7 @@
 
 A full Extract-Transform-Load pipeline built in Python that cleans and loads the Netflix Movies and TV Shows dataset into a queryable SQLite database, then runs SQL analysis to surface content trends.
 
-The raw dataset has 8,807 rows and 12 columns with significant missing data — especially in `director` (2,634 nulls), `cast`, and `country`. The pipeline handles all of that systematically before loading into a structured database.
+The raw dataset has 8,807 rows and 12 columns with significant missing data - especially in `director` (2,634 nulls), `cast`, and `country`. The pipeline handles all of that systematically before loading into a structured database.
 
 ---
 
