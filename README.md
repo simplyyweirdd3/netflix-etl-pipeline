@@ -1,5 +1,5 @@
 # Netflix ETL Pipeline
-**Course:** CPSC 5071 – Data Management for Data Science  
+**Course:** CPSC 5071 - Data Management for Data Science  
 **Institution:** Seattle University, MS in Data Science  
 **Term:** Winter 2026
 
@@ -15,11 +15,11 @@ The raw dataset has 8,807 rows and 12 columns with significant missing data — 
 
 ## Pipeline Structure
 
-### Step 1 — Extract
+### Step 1 - Extract
 - Loads `netflix_titles.csv` into a pandas DataFrame
 - Inspects shape, dtypes, and null counts before any transformation
 
-### Step 2 — Transform
+### Step 2 - Transform
 - Standardizes column names (lowercase, underscores)
 - Drops rows missing `title`, `release_year`, or `date_added`
 - Fills non-critical nulls (`director`, `cast`, `country`, `rating`) with `"Unknown"` to preserve otherwise valid records
@@ -29,11 +29,11 @@ The raw dataset has 8,807 rows and 12 columns with significant missing data — 
 - Splits `listed_in` into a `primary_genre` column for cleaner querying
 - Parses `duration` into separate `duration_value` (numeric) and `duration_unit` columns
 
-### Step 3 — Load
+### Step 3 - Load
 - Saves cleaned DataFrame into a SQLite database (`netflix_cleaned.db`)
 - Table name: `netflix_shows`
 
-### Step 4 — Validate with SQL
+### Step 4 - Validate with SQL
 Six queries run against the loaded database:
 
 | Query | What it answers |
@@ -49,9 +49,9 @@ Six queries run against the loaded database:
 
 ## Key Findings
 
-- The US leads with ~2,800 titles; India came in at nearly 1,000 — larger than the UK, Japan, and South Korea combined
-- Movies average a release year of 2013 vs 2016 for TV Shows — the movie catalog leans on older licensed content
-- Content additions peaked in 2019–2020, then slowed — reflecting Netflix's shift away from volume licensing toward originals
+- The US leads with ~2,800 titles; India came in at nearly 1,000 - larger than the UK, Japan, and South Korea combined
+- Movies average a release year of 2013 vs 2016 for TV Shows - the movie catalog leans on older licensed content
+- Content additions peaked in 2019–2020, then slowed - reflecting Netflix's shift away from volume licensing toward originals
 
 ---
 
